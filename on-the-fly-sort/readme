@@ -1,0 +1,26 @@
+
+How to run:
+$ chmod +x run.sh 
+$ ./run.sh
+$ ./client - in a new terminal.
+
+
+Flow:
+	- Networking part is implemented using socket programming in C. After doing "./run.sh", the server gets started.
+	- Client can be started in a new terminal by doing this  -->  "./client"
+		- For now the client starts sending two numbers which are exchange number(int) and stock number(long long int). It was written as a loop of 15 numbers in reverse order starting from 0; This is can modified.
+	- The server gets the client connection and spawns a new thread.
+
+
+Algorithm & Data Structures:
+
+I have used HashMap and a Balanced Binary Search Tree. Both of the implementations can be found in these header files : "hashmap.h" and "balancedbst.h"
+
+The reason for using these DS:
+	1. HashMap - It would help in accessing the information related to a particular exchange in O(1)
+	2. Balanced Binary Search Tree - Each exchange number has a TreeNode associated with it which is nothing but the root of that Tree. Also, we can alternatively use linkedlist or a bst, but again Balanced has better time bounds compared to the former described ones. Through BST, we can achieve the following operations like insert, sort and search, with a better time complexity as given below 
+		- Insert : O(log N)
+		- Sort : O(N)
+		- Search : O(log N)
+
+	Though search is not our priority, it might be a useful need in the future. Therefore I have chosen these particular data strutures for the this question.  

@@ -1,0 +1,5 @@
+How to run:
+$ chmod +x 
+$ ./run.sh 
+
+input is found file "input.txt"

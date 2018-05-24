@@ -1,0 +1,40 @@
+How to run?
+$ chmod +x run.sh 
+$ ./run.sh 
+This should start the server.
+
+
+Flow:
+
+We should input three values before start of the program: maxIntervalSeconds, maxPriceMove, maxSymbolsAtATime. 
+
+Two threads will be running all the time:
+	Pricing : This takes input symbol id and price.
+	OnTimer : This calls MarketDataPublisher.onTimer() for every maxIntervalSeconds.
+
+
+MarketDataPublisher:
+	* has a map and two doubly linked lists. 
+		- RecentBroadcastList : This list contains symbols which are broadcasted just after crossing the threshold.
+		- ShouldBroadcastList : This list contains which are not populated over long time.
+		- unordered_map<> will store the position of the symbol in whichever list it is present.
+		
+
+
+Algorithm:
+
+updatePrice() - O(1)
+	- update the price of the symbol 
+	- if present in map, remove it from the current list by retrieving its position using list.erase() - O(1) 
+	- check the diff of prices and compare it with the threshold. 
+	- if broadcasted -> add into RecentBroadcastlist, else -> add into ShouldBroadcastlist 
+
+
+onTimer() - O(length of RecentBroadcastList) + O(maxSymbolsAtAtAtime)
+	- check for symbols in RecentBroadcastlist, if diff in time, between lastpublishedtime and current time,  is greater than n_secs , move it into ShouldBroadcastlist
+	- Print the next m symbols from the ShouldBroadcastlist. 
+
+Therefore these two datastructures help us in improving the run-time complexity of the entire system.
+
+Symbol.h and Broadcast.h - contains class definitions and useful setter/getter functions. 
+

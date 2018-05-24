@@ -1,0 +1,34 @@
+
+	How to run?
+	$ chmod +x run.sh 
+	$ ./run.sh 
+
+	file-reduce-algorithm: Multiple steps to deliver the output. Please go through the steps described below.
+
+	1. Reading records and creating maps with their ids. 
+		- Main thread :
+		 - Calls Handler method
+			- Initialize RecordHandler object -> This objects holds a reference map of parent and child records. 
+			- Read lines from the file 
+				- For every 100 records
+				 - Copy the parent-child and association
+				 - Create files with parent id as file name
+
+
+	2. Writing into files
+	
+	There are different ways to deal this problem at this step. 
+		1. Holding all the records into memory and then apply the algorithm.	
+			- Copying all the records into memory is a big deal, for a ~10 million records, it would be around 2GB.
+			- So this is not a good way to handle it in real world.
+		2. Creating intermediate files with a O(1) access i.e., new files are created with parent id as its name and its corresponding children are copied in it.
+			- The disadvantage of this process is that we will be creating the files two times and it takes lots of time but it gives us the advantage of not holding the files in memory. So, I thought this could be a valid process since it was mentioned millions of records.
+
+
+	3. Final step: Algorithm for efficient distribution:
+		
+		* The maximum number of files (with out the given X constraint) would equal to the total number of parent records present in the file.
+		* Since given each file should have more than X records, the problem gets tougher. This problem can be rephrased as,
+			Given an array of positive integers find the maximum number of non-overlapping subsequences which should sum upto K.
+
+			"I have tried thinking about for past few days and couldn't get it. So this part of the problem is pending" 
